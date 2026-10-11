@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>互联网小章鱼相关文章/动态补档</title>
+<style>
+  :root{
+    --text:#2f3238; --muted:#61666d; --line:#e3e5e7;
+    --accent:#fb7299; --blue:#00a1d6; --bg:#f6f7f8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+    font-size:15px;line-height:1.75;
+  }
+  .container{max-width:860px;margin:0 auto;padding:32px 20px 64px;}
+
+  .notice{
+    background:#fff8e6;border:1px solid #f5d98b;border-left:4px solid #e8b23a;
+    border-radius:6px;padding:12px 16px;font-size:13px;color:#7a5c14;
+    margin-bottom:24px;
+  }
+  .notice strong{color:#a86a00;}
+
+  header.page{margin-bottom:28px;}
+  header.page h1{font-size:26px;margin:0 0 8px;}
+  header.page .sub{color:var(--muted);font-size:14px;}
+
+  h2.group{
+    font-size:18px;margin:36px 0 14px;display:flex;align-items:center;gap:8px;
+  }
+  h2.group .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  h2.group.new .dot{background:var(--accent);}
+  h2.group.hist .dot{background:#b8bcc2;}
+  h2.group .count{font-size:13px;color:var(--muted);font-weight:400;}
+
+  .list{display:flex;flex-direction:column;gap:12px;}
+
+  .item{
+    background:#fff;border-radius:8px;padding:16px 20px;
+    border:1px solid var(--line);text-decoration:none;color:inherit;
+    display:block;transition:border-color .15s, box-shadow .15s, transform .15s;
+  }
+  .item:hover{
+    border-color:var(--accent);
+    box-shadow:0 2px 10px rgba(251,114,153,.12);
+    transform:translateY(-1px);
+  }
+  .item .row1{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .item .title{font-weight:600;font-size:16px;}
+  .item .badge{
+    font-size:12px;border-radius:3px;padding:1px 7px;
+    background:#eaf4fb;color:var(--blue);
+  }
+  .item .badge.new{background:#fdeaf1;color:var(--accent);}
+  .item .time{color:var(--muted);font-size:13px;margin-left:auto;white-space:nowrap;}
+  .item .desc{color:var(--muted);font-size:13.5px;margin-top:6px;}
+
+  .empty{
+    color:var(--muted);font-size:14px;text-align:center;padding:24px 0;
+    background:#fff;border:1px dashed var(--line);border-radius:8px;
+  }
+
+  footer.foot{
+    margin-top:48px;padding-top:16px;border-top:1px solid var(--line);
+    color:var(--muted);font-size:12.5px;line-height:1.9;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="notice">
+    <strong>免责声明：</strong>本页面为非官方存档索引，所涉内容均转载自网络公开渠道，
+    著作权归原权利人所有。转载仅为事实记录与公共讨论，<strong>不确定也不保证</strong>内容真实性，
+    不代表转载者认同任何指控或立场。如权利人认为侵权，请联系删除。
+  </div>
+
+  <header class="page">
+    <h1>互联网小章鱼相关文章/动态补档</h1>
+    <div class="sub" id="pageSub">加载中…</div>
+  </header>
+
+  <h2 class="group new"><span class="dot"></span>更新 <span class="count" id="countNew"></span></h2>
+  <div class="list" id="listNew"></div>
+
+  <h2 class="group hist"><span class="dot"></span>历史 <span class="count" id="countHist"></span></h2>
+  <div class="list" id="listHist"></div>
+
+  <footer class="foot">
+    本页面为个人存档，与所涉游戏运营方及其制作组成员无任何隶属关系。<br>
+    最后更新：<span id="footTime">—</span>
+  </footer>
+
+</div>
+
+<script>
+/* ========== 数据 ==========
+   结构：
+   {
+     "updated": "2026-10-11",
+     "items": [
+       {
+         "id": "unique-id",
+         "title": "显示标题",
+         "file": "site/archive/a1/小章鱼_你欠所有人一个交代.html",
+                                 // 相对本文件（仓库根）的路径；存档页及其图片等附属文件统一整理在 site\archive\<id>\ 下
+         "time": "2026-10-06 00:00",   // 存档内容的更新时间
+         "desc": "一句话说明（可选）",
+         "tag": "专栏",                 // 可选标签
+         "zone": "new"                  // "new" 或 "history"
+       }
+     ]
+   }
+============================================================ */
+const DEFAULT_DATA = {
+/*  格式
+"updated": "2026-10-11",
+  "items": [
+    {
+      "id": "a1",
+      "title": "标题",
+      "file": "文件索引",
+      "time": "更新时间",
+      "desc": "描述",
+      "tag": "标签",
+      "zone": "new"
+    },
+  ] 
+*/
+};
+
+/* ========== 渲染逻辑（一般不用改） ========== */
+(function render(){
+  let data = DEFAULT_DATA;
+
+  // 若 editor.html 导出过数据并放在 data.json，优先读取
+  // 没有 data.json 时会走上面的 DEFAULT_DATA
+  const sub = document.getElementById('pageSub');
+  const footTime = document.getElementById('footTime');
+
+  function esc(s){
+    return String(s==null?'':s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function itemHTML(it){
+    const isNew = it.zone === 'new';
+    return `
+      <a class="item" href="${esc(it.file)}">
+        <div class="row1">
+          <span class="title">${esc(it.title)}</span>
+          ${it.tag ? `<span class="badge${isNew?' new':''}">${esc(it.tag)}</span>` : ''}
+          <span class="time">${esc(it.time||'')}</span>
+        </div>
+        ${it.desc ? `<div class="desc">${esc(it.desc)}</div>` : ''}
+      </a>`;
+  }
+
+  function paint(data){
+    const items = Array.isArray(data.items) ? data.items : [];
+    const news = items.filter(x=>x.zone==='new');
+    const hists= items.filter(x=>x.zone!=='new');
+
+    document.getElementById('countNew').textContent  = `（${news.length}）`;
+    document.getElementById('countHist').textContent = `（${hists.length}）`;
+
+    document.getElementById('listNew').innerHTML =
+      news.length ? news.map(itemHTML).join('') : '<div class="empty">暂无更新</div>';
+    document.getElementById('listHist').innerHTML =
+      hists.length ? hists.map(itemHTML).join('') : '<div class="empty">暂无历史档案</div>';
+
+    sub.textContent = `共 ${items.length} 份存档 · 数据更新于 ${data.updated || '—'}`;
+    footTime.textContent = data.updated || '—';
+  }
+
+  // 尝试加载 data.json；失败则用默认数据
+  fetch('data.json', {cache:'no-store'})
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(json => paint(json))
+    .catch(() => paint(DEFAULT_DATA));
+})();
+</script>
+</body>
+</html>

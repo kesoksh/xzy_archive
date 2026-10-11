@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>威胁？泄露？深度剖析小章鱼如何让 Milthm 新团队走向崩溃</title>
+<style>
+  :root { --text: #2f3238; --muted: #61666d; --line: #e3e5e7; --accent: #fb7299; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f8; color: var(--text);
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    font-size: 16px; line-height: 1.8; }
+  .container { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+  .card { background: #fff; border-radius: 8px; padding: 32px 40px; }
+  .cover { width: 100%; border-radius: 6px; margin-bottom: 20px; border: 1px solid var(--line); }
+  h1.title { font-size: 28px; line-height: 1.4; margin: 0 0 16px; }
+  .meta { display: flex; align-items: center; gap: 12px; color: var(--muted);
+    font-size: 14px; padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+  .meta .avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover;
+    background: #e3e5e7; flex-shrink: 0; }
+  .meta .name { color: var(--accent); font-size: 16px; font-weight: 600; }
+  h2.section { font-size: 22px; margin: 40px 0 16px; padding-top: 24px; border-top: 1px solid var(--line); }
+  h2.section:first-of-type { border-top: none; padding-top: 0; }
+  p { margin: 0 0 16px; }
+  .intro { color: var(--text); }
+  .rule { color: var(--muted); letter-spacing: 2px; overflow: hidden; white-space: nowrap; margin: 20px 0; }
+  figure { margin: 20px auto; text-align: center; }
+  figure img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--line); background: #fff; }
+  figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.6; text-align: left;
+    background: #f6f7f8; border-left: 3px solid var(--accent); padding: 6px 10px; border-radius: 0 4px 4px 0; }
+  hr { border: none; border-top: 1px solid var(--line); margin: 32px 0; }
+  .stats { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 14px; }
+  .source { color: var(--muted); font-size: 13px; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+<article class="card">
+
+  <img class="cover" src="images/cv53316951/001_bf841e08825b19961311b1887b8c28233706927737473467.png" alt="封面">
+  <h1 class="title">威胁？泄露？深度剖析小章鱼如何让 Milthm 新团队走向崩溃</h1>
+  <div class="meta">
+    <img class="avatar" src="images/cv53316951/002_c2bb38857162b12cfbd398f0b995a99ea607f568.jpg" alt="互联网小章鱼的头像">
+    <div>
+      <div class="name">互联网小章鱼</div>
+      <div>2026年10月07日 01:43 · 专栏 cv53316951</div>
+    </div>
+  </div>
+
+  <p class="intro">本文主角「辣椒树」，又名「幸奈」、「YamiNa」、「互联网小章鱼」、「杉原夜季」、「Kiyotsuki」、「十返清月」，曾任职《Milthm》策划。</p>
+  <p class="intro">以下内容由知情人士提供，并经整理后发布。</p>
+  <p class="rule">————————————————————————————————</p>
+
+  <h2 class="section">概要：</h2>
+
+  <p>Milthm 前主创成员小章鱼，在公开账号明确表明自己退出游戏制作后，依旧不断威胁、控制、纠缠新制作组数月。索要"7万天价买断费"、"一票否决权"未果后，多次威胁团队，拒绝合理交流，擅自干涉新制作组工作，拉帮结派，多次辱骂造谣制作组成员，导致制作组无可奈何只能决定解散。</p>
+  <p>在项目面临解散之际，其依旧死心不改，多次要求制作组将游戏版权交给他处置。未果后，其在 QQ 群公开造谣辱骂制作组，在 B 站公开直播游戏制谱器内容，公开大量游戏内部资料，造成了严重后果。</p>
+  <p class="rule">————————————————————————————————</p>
+
+  <h2 class="section">1. 尘埃落定？</h2>
+
+  <p>曾几何时，我们以为这场持续数月的雨 EP 风波，终于要以一种体面的方式落下帷幕。此前，小章鱼已在公开账号发布退组声明，向新制作组道歉，并宣布正式退出。不久后，他前往公安机关"立案"，以法律手段相威胁，要求我下架相关动态。</p>
+  <p>这一系列操作看似流程完整、滴水不漏，表面上他仿佛已经回归了普通玩家的身份。然而，表面的和平终究只是假象。退组和道歉并没有换来彻底的切割，在"立案"与"威胁下架"的掩护下，他依然死心不改，暗中将手伸向了新制作组的正常运转……</p>
+
+  <figure>
+    <img src="images/cv53316951/003_f3fb743530e1fefb0155912132f57e333706927737473467.png" alt="证据截图 1" loading="lazy">
+    <figcaption>小章鱼在告别</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/004_a322cdb0bf7b3db6f2230187c189e5b53706927737473467.png" alt="证据截图 2" loading="lazy">
+    <figcaption>小章鱼表示已经立案</figcaption>
+  </figure>
+
+  <h2 class="section">2. 神权与钱的抉择</h2>
+
+  <p>首先是拒绝交出贡献，以此作为要挟团队的筹码。在项目重组之际，出于合规要求，团队要求他签署《贡献转让协议》。但他拒不签字，反而抛出极为荒谬的勒索条件：</p>
+  <p>要么支付所谓的"市场价"三分之一买断（且"市场价怎么算得由他来定"，此前曾开口索要 7 万元（约为市场价两到三倍））；要么赋予他"用人一票否决权"、"收曲一票否决权"的"神权"，甚至作为一个已退组成员，还要强行介入与项目成员的直接沟通。</p>
+  <p>妄图以极度不平等的霸王条款继续掌控新制作组，稍有不从便不断纠缠、威胁，导致推进工作举步维艰。</p>
+
+  <figure>
+    <img src="images/cv53316951/005_9651fd10a0a117b1d47de6e8339cc9653706927737473467.jpg" alt="证据截图 3" loading="lazy">
+    <figcaption>小章鱼给出的价格</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/006_b7726db74d318ad0b7dd1e2d02e976393706927737473467.jpg" alt="证据截图 4" loading="lazy">
+    <figcaption>小章鱼要求给予神权</figcaption>
+  </figure>
+
+  <h2 class="section">3. 缠缠绵绵的阴影</h2>
+
+  <p>在纠缠中，他深知自己前期的行径已导致风评受损，便企图通过造谣与制造舆论来解决自身的风评问题。他不再着眼于游戏内容本身，试图伪造雨 EP 的真实内情，将锅全部甩到制作组身上，并以此作为要挟。直言越来越不在意 Milthm 的死活了，想不出 Milthm 爆炸能给他带来的坏处。</p>
+  <p>他拒绝有效率的沟通，势必要和组内打持久战。同时，他还拉帮结派，套取新制作组内部消息，在核心组员中间散播负面情绪，妄图从内部彻底瓦解新项目组。</p>
+
+  <figure>
+    <img src="images/cv53316951/007_8c63bc619c8e14a62698b0803678565b3706927737473467.jpg" alt="证据截图 5" loading="lazy">
+    <figcaption>小章鱼想要伪造事实</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/008_a5be0c811ed24fcd87dad6e63dd4a7ab3706927737473467.jpg" alt="证据截图 6" loading="lazy">
+    <figcaption>威胁</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/009_8094ae3539217fb8975f0c57048c46bc3706927737473467.png" alt="证据截图 7" loading="lazy">
+    <figcaption>小章鱼直言爆炸对他没有任何坏处</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/010_ab98a85dd3fe1c15026d71a547ac28763706927737473467.jpg" alt="证据截图 8" loading="lazy">
+    <figcaption>小章鱼以各种事情推脱沟通</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/011_fb8fb96e58eb3ec11e03fe4aa47d31693706927737473467.jpg" alt="证据截图 9" loading="lazy">
+    <figcaption>小章鱼想要耗时间</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/012_24b47b0c14ad4a251eb07e7b9f3bbaea3706927737473467.png" alt="证据截图 10" loading="lazy">
+    <figcaption>小章鱼想要引起内部冲突</figcaption>
+  </figure>
+
+  <h2 class="section">4. 比权利更沉重的</h2>
+
+  <p>不仅如此，他更是将破坏的双手伸向了团队的外部合作，擅自干预新组的正常联动。</p>
+  <p>在未经过任何内部商议、甚至已无权干涉新组决策的情况下，他私自越权联系外部联动方（Simple），单方面宣布"这次选曲无效"。同时，他在群内对团队的选曲大泼脏水，用极具侮辱性的言语辱骂联动曲目是"一坨屎"，甚至傲慢地质问："是不是给你们一坨屎只要是别的游戏的你们都要？"</p>
+  <p>这种自作主张的越权行为，不仅让团队在外部合作方面前信誉受损，更让原本就举步维艰的新制作组雪上加霜。</p>
+
+  <figure>
+    <img src="images/cv53316951/013_9b30599b5f0519287d9f0f3510ea09883706927737473467.jpg" alt="证据截图 11" loading="lazy">
+    <figcaption>小章鱼表示选曲无效</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/014_9c79b6706cdd273a3aa3af0980e91c543706927737473467.jpg" alt="证据截图 12" loading="lazy">
+    <figcaption>小章鱼辱骂选曲</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/015_5e80f7735944b3e199769c22e9723a533706927737473467.png" alt="证据截图 13" loading="lazy">
+    <figcaption>小章鱼私自和 simple 主策进行对话</figcaption>
+  </figure>
+
+  <h2 class="section">5. 刀尖之上的舍离</h2>
+
+  <p>在核心进度停滞、外部口碑受损、内部人心惶惶的境地下，团队已无法保证正常产出，更无力应对随时可能爆发的版权纠纷和网络风暴。最终，出于法律合规要求，新制作组在内部决定终止游戏制作。</p>
+  <p>然而可笑的是，在彻底摧毁了 Milthm 之后，他并没有如自己此前扬言的那般"毫不在意"。在项目宣告解散的当下，他反而跑到其他群聊，开启了卖惨模式，疯狂塑造自己的"受害者"形象。</p>
+  <p>他绝口不提天价买断费、一票否决权、拉帮结派等恶劣行径，反而将自己包装成"付出一切却被无情排挤"的可怜创作者，试图利用不知情的群众带偏舆论。</p>
+  <p>更令人不齿的是，他一边扮演受害者，一边露出了夺取版权的野心。他在群内质问："全部给我吧"、"你们这游戏的 IP 权力到底在谁手上？别踢皮球了！"。他试图在解散的混乱节点，将拒不交出的贡献作为筹码，逼迫团队把 IP 交给他。他根本不是来维权的，他是想趁火打劫，把全体成员的心血据为己有，自己单飞做"救世主"。这种"得不到就毁掉，毁了还要据为己有"的丑陋面目，令人作呕。</p>
+
+  <figure>
+    <img src="images/cv53316951/016_d464e57d59656d699bcfd68c46f9e2d83706927737473467.png" alt="证据截图 14" loading="lazy">
+    <figcaption>小章鱼在解散边缘的辱骂</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/017_e7f21e711b295415c2acfaaf93928d293706927737473467.png" alt="证据截图 15" loading="lazy">
+    <figcaption>小章鱼想要游戏版权</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/018_10786205316a44e753ab4d83d2985efd3706927737473467.jpg" alt="证据截图 16" loading="lazy">
+    <figcaption>小章鱼追问</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/019_f462accac4ea86c4ef3f7f41327ec7fa3706927737473467.jpg" alt="证据截图 17" loading="lazy">
+    <figcaption>小章鱼在解散后的虚假言论</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/020_9ce2fc38a7fd91722aedc68a724219fb3706927737473467.jpg" alt="证据截图 18" loading="lazy">
+    <figcaption>小章鱼依旧不死心，并且公开带节奏</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/021_f23ace37161a52a8cd28366ee007f6b03706927737473467.jpg" alt="证据截图 19" loading="lazy">
+    <figcaption>小章鱼伤心</figcaption>
+  </figure>
+
+  <h2 class="section">6. 灯光下，停不下的舞步</h2>
+
+  <p>然而他的野心并未停止。他不仅在 B 站动态向公众大肆泄露 Milthm 内部资料，更在直播中"无意"展示游戏制谱器与未上线内容。</p>
+  <p>但可悲又可笑的是，这种所谓的"泄密"，并不是单纯的冲动报复，而是一场精心策划的卖惨表演。他试图借展示内部资产，向观众证明自己曾付出多少"心血"，用带血的流量为自己塑造"劳苦功高却被卸磨杀驴"的人设。</p>
+  <p>嘴里说着"想不出 Milthm 爆炸能给我带来的坏处"，手里的动作却是拿着 Milthm 的未公开内容给自己吸粉洗白。这种用毁掉项目来成全自己人设的行径，彻底触碰了道德与法律的底线。</p>
+
+  <figure>
+    <img src="images/cv53316951/022_410bfac7d29ad22e0d0467929a29b0293706927737473467.png" alt="证据截图 20" loading="lazy">
+    <figcaption>小章鱼公布联动内容</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/023_56027e8a3a6e2f48c01ba49e8411c0b43706927737473467.png" alt="证据截图 21" loading="lazy">
+    <figcaption>小章鱼公布剧情编辑器</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/024_d9dbd0cc40b4b66e5bf890de7ccab6d33706927737473467.png" alt="证据截图 22" loading="lazy">
+    <figcaption>小章鱼直播制谱器</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/025_c43edaf4a2acea33fd0754648b5eae8a3706927737473467.png" alt="证据截图 23" loading="lazy">
+    <figcaption>小章鱼直播讨论</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/026_ba545837c1ef515414746fe32ae9c7d13706927737473467.jpg" alt="证据截图 24" loading="lazy">
+    <figcaption>小章鱼鬼扯与推卸</figcaption>
+  </figure>
+  <figure>
+    <img src="images/cv53316951/027_8e59cd88a091a270620bbcfcd841819d3706927737473467.png" alt="证据截图 25" loading="lazy">
+    <figcaption>半夜十二点</figcaption>
+  </figure>
+
+  <hr>
+
+  <h2 class="section">结语：</h2>
+
+  <p>当初小章鱼入组时，前主创曾经说过"：我们把创作游戏当作一种乐趣，投注我们的热爱，一起愉快地做游戏，并不是特别想要追求某个特定的目标"</p>
+  <p>曾经的婉拒是为了保护团队的纯粹，而那份包容最终化作了刺向我们所有人心脏的尖刀。</p>
+
+  <figure>
+    <img src="images/cv53316951/028_a9bdb3aee805be8c94365f79a7b30a463706927737473467.jpg" alt="证据截图 26" loading="lazy">
+    <figcaption>还没进组的小章鱼</figcaption>
+  </figure>
+
+  <div class="stats">
+    阅读 772 · 点赞 26 · 评论 18 · 收藏 11 · 投币 2 · 转发动态 3
+    <div class="source">来源：哔哩哔哩专栏 cv53316951（动态 opus 1256149390068809735），原文为繁体中文，此处已转换为简体中文；配图 26 张，与原文顺序一致。</div>
+  </div>
+
+</article>
+</div>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>存档索引编辑器</title>
+<style>
+  :root{
+    --text:#2f3238; --muted:#61666d; --line:#e3e5e7;
+    --accent:#fb7299; --blue:#00a1d6; --bg:#f6f7f8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+    font-size:14px;line-height:1.7;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 18px 80px;}
+  h1{font-size:22px;margin:0 0 6px;}
+  .tip{color:var(--muted);font-size:13px;margin-bottom:20px;}
+
+  .toolbar{
+    display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:12px 16px;margin-bottom:20px;
+  }
+  .toolbar label{font-size:13px;color:var(--muted);}
+  .toolbar input[type=date]{
+    border:1px solid var(--line);border-radius:4px;padding:4px 8px;font-size:13px;
+  }
+  button{
+    border:1px solid var(--line);background:#fff;color:var(--text);
+    border-radius:5px;padding:6px 14px;font-size:13px;cursor:pointer;
+    transition:.15s;
+  }
+  button:hover{border-color:var(--accent);color:var(--accent);}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  button.primary:hover{opacity:.88;color:#fff;}
+  button.danger:hover{border-color:#e05252;color:#e05252;}
+  .spacer{flex:1;}
+
+  .list{display:flex;flex-direction:column;gap:10px;}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:14px 18px;
+  }
+  .card .grid{
+    display:grid;grid-template-columns:120px 1fr;gap:8px 12px;align-items:center;
+  }
+  .card .grid .full{grid-column:1 / -1;}
+  .card label{font-size:13px;color:var(--muted);}
+  .card input[type=text], .card input[type=date], .card select, .card textarea{
+    width:100%;border:1px solid var(--line);border-radius:4px;
+    padding:5px 8px;font-size:13px;font-family:inherit;color:var(--text);
+    background:#fff;
+  }
+  .card textarea{resize:vertical;min-height:38px;}
+  .card .row-actions{
+    display:flex;gap:8px;justify-content:flex-end;margin-top:8px;
+  }
+  .zone-tag{
+    display:inline-block;font-size:12px;border-radius:3px;
+    padding:1px 7px;margin-left:6px;
+  }
+  .zone-tag.new{background:#fdeaf1;color:var(--accent);}
+  .zone-tag.history{background:#eef0f2;color:var(--muted);}
+
+  .preview{
+    margin-top:28px;background:#fff;border:1px solid var(--line);
+    border-radius:8px;padding:16px 20px;
+  }
+  .preview h2{font-size:15px;margin:0 0 10px;color:var(--muted);font-weight:600;}
+  .preview pre{
+    background:#fafbfc;border:1px solid var(--line);border-radius:6px;
+    padding:12px;font-size:12.5px;overflow:auto;max-height:320px;
+    white-space:pre-wrap;word-break:break-all;margin:0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>存档索引编辑器</h1>
+  <div class="tip" id="tip">
+    改动自动保存在本机浏览器（localStorage）。完成后点「导出 data.json」，
+    把文件上传到仓库根目录即可让首页读取。也可以直接复制下方的 JSON 手动保存。
+  </div>
+
+  <div class="toolbar">
+    <label>数据更新日期</label>
+    <input type="date" id="updated">
+    <div class="spacer"></div>
+    <button id="btnAddNew">＋ 新增到「更新」</button>
+    <button id="btnAddHist">＋ 新增到「历史」</button>
+    <button class="primary" id="btnExport">导出 data.json</button>
+    <button id="btnCopy">复制 JSON</button>
+    <button class="danger" id="btnReset">重置为默认</button>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <div class="preview">
+    <h2>实时 JSON 预览</h2>
+    <pre id="jsonPreview"></pre>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'xzy_archive_index_v1';
+
+/* 与 index.html 中的 DEFAULT_DATA 保持一致，作为初始模板
+   file 为相对仓库根的路径，存档页及其附属文件统一整理在 site\archive\<id>\ 下 */
+const DEFAULT_DATA = {
+  "updated": "2026-10-11",
+  "items": [
+    { "id":"a1","title":"小章鱼，你欠所有人一个交代！","file":"site/archive/a1/小章鱼_你欠所有人一个交代.html","time":"2026-10-06 00:00","desc":"专栏 cv53304354 · 五大罪行逐条列举","tag":"专栏","zone":"new" },
+    { "id":"a2","title":"威胁？泄露？深度剖析小章鱼如何让 Milthm 新团队走向崩溃","file":"site/archive/a2/威胁_泄露_深度剖析小章鱼如何让 Milthm 新团队走向崩溃.html","time":"2026-10-07 01:43","desc":"专栏 cv53316951 · 知情人士整理","tag":"专栏","zone":"new" },
+    { "id":"a3","title":"互联网小章鱼 的动态存档（全部时间）","file":"site/archive/a3/3706927737473467_dynamic.html","time":"2026-10-11 01:05","desc":"共 14 条动态 · 含视频投稿与转发","tag":"动态","zone":"new" },
+    { "id":"a4","title":"杉原夜季Official 的动态存档（2026-07-30 以来）","file":"site/archive/a4/小章鱼_动态_2026-07-30以来.html","time":"2026-10-02 02:59","desc":"共 24 条动态 · 视频投稿 / 图文 / 转发 / 专栏","tag":"动态","zone":"new" }
+  ]
+};
+
+let data = JSON.parse(JSON.stringify(DEFAULT_DATA)); // 先占位，异步加载完再渲染
+
+async function loadData(){
+  // 1) 优先读同目录 data.json
+  try{
+    const res = await fetch('data.json', {cache:'no-store'});
+    if(res.ok){
+      const json = await res.json();
+      if(json && Array.isArray(json.items)){
+        data = json;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        return 'data.json';
+      }
+    }
+  }catch(e){ /* 本地直接双击打开时 fetch 会失败，属正常 */ }
+
+  // 2) 退回 localStorage
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const json = JSON.parse(raw);
+      if(json && Array.isArray(json.items)){
+        data = json;
+        return 'localStorage';
+      }
+    }
+  }catch(e){}
+
+  // 3) 用默认数据
+  data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  return 'default';
+}
+
+function save(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  renderPreview();
+}
+function uid(){
+  return 'id_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
+
+function render(){
+  document.getElementById('updated').value = data.updated || '';
+
+  const list = document.getElementById('list');
+  const newItems  = data.items.filter(x=>x.zone==='new');
+  const histItems = data.items.filter(x=>x.zone!=='new');
+
+  list.innerHTML = '';
+
+  // 更新区
+  const h1 = document.createElement('h2');
+  h1.style.fontSize = '15px';
+  h1.style.margin = '6px 0 2px';
+  h1.innerHTML = '更新区 <span class="zone-tag new">new</span>';
+  list.appendChild(h1);
+  if(newItems.length===0) list.appendChild(emptyHint('更新区暂无条目'));
+  newItems.forEach(it => list.appendChild(card(it)));
+
+  // 历史区
+  const h2 = document.createElement('h2');
+  h2.style.fontSize = '15px';
+  h2.style.margin = '22px 0 2px';
+  h2.innerHTML = '历史区 <span class="zone-tag history">history</span>';
+  list.appendChild(h2);
+  if(histItems.length===0) list.appendChild(emptyHint('历史区暂无条目'));
+  histItems.forEach(it => list.appendChild(card(it)));
+
+  renderPreview();
+}
+
+function emptyHint(text){
+  const d = document.createElement('div');
+  d.style.color = 'var(--muted)';
+  d.style.fontSize = '13px';
+  d.style.padding = '10px 0';
+  d.textContent = text;
+  return d;
+}
+
+function card(it){
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.innerHTML = `
+    <div class="grid">
+      <label>标题</label>
+      <input type="text" data-k="title" value="${escAttr(it.title)}">
+
+      <label>文件名</label>
+      <input type="text" data-k="file" value="${escAttr(it.file)}" placeholder="例如 site/archive/a6/xxx.html（保存时用 --archive 可自动登记）">
+
+      <label>更新时间</label>
+      <input type="text" data-k="time" value="${escAttr(it.time)}" placeholder="2026-10-06 00:00">
+
+      <label>标签</label>
+      <input type="text" data-k="tag" value="${escAttr(it.tag)}" placeholder="专栏 / 动态 / 其他">
+
+      <label>说明</label>
+      <input type="text" data-k="desc" value="${escAttr(it.desc)}" placeholder="可选，一句话描述">
+
+      <label>分区</label>
+      <select data-k="zone">
+        <option value="new">更新（new）</option>
+        <option value="history">历史（history）</option>
+      </select>
+    </div>
+    <div class="row-actions">
+      <button data-act="up">↑ 上移</button>
+      <button data-act="down">↓ 下移</button>
+      <button class="danger" data-act="del">删除</button>
+    </div>
+  `;
+
+  // 初始化 select
+  el.querySelector('select[data-k="zone"]').value = it.zone==='new' ? 'new' : 'history';
+
+  el.querySelectorAll('input,select').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      it[inp.dataset.k] = inp.value;
+      save();
+      // 若改了分区，重绘以移动卡片
+      if(inp.dataset.k==='zone') render();
+    });
+  });
+
+  el.querySelector('[data-act="up"]').onclick = ()=>{
+    move(it, -1); save(); render();
+  };
+  el.querySelector('[data-act="down"]').onclick = ()=>{
+    move(it, 1); save(); render();
+  };
+  el.querySelector('[data-act="del"]').onclick = ()=>{
+    if(!confirm('确定删除这条存档吗？')) return;
+    data.items = data.items.filter(x=>x.id !== it.id);
+    save(); render();
+  };
+
+  return el;
+}
+
+function move(it, dir){
+  const arr = data.items;
+  const idx = arr.indexOf(it);
+  if(idx<0) return;
+  // 只在同一分区内移动
+  const sameZone = arr.filter(x => (x.zone==='new') === (it.zone==='new'));
+  const zi = sameZone.indexOf(it);
+  const targetZ = zi + dir;
+  if(targetZ < 0 || targetZ >= sameZone.length) return;
+  const target = sameZone[targetZ];
+  const gi = arr.indexOf(target);
+  arr.splice(idx, 1);
+  arr.splice(gi, 0, it);
+}
+
+function addItem(zone){
+  data.items.push({
+    id: uid(),
+    title: '新存档',
+    file: 'site/archive/example/example.html',
+    time: new Date().toISOString().slice(0,16).replace('T',' '),
+    desc: '',
+    tag: '',
+    zone: zone
+  });
+  save(); render();
+}
+
+function escAttr(s){
+  return String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderPreview(){
+  document.getElementById('jsonPreview').textContent =
+    JSON.stringify(data, null, 2);
+}
+
+/* 工具栏事件 */
+document.getElementById('updated').addEventListener('change', e=>{
+  data.updated = e.target.value;
+  save();
+});
+document.getElementById('btnAddNew').onclick  = ()=> addItem('new');
+document.getElementById('btnAddHist').onclick = ()=> addItem('history');
+
+document.getElementById('btnExport').onclick = ()=>{
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+document.getElementById('btnCopy').onclick = async ()=>{
+  const txt = JSON.stringify(data, null, 2);
+  try{
+    await navigator.clipboard.writeText(txt);
+    alert('JSON 已复制到剪贴板');
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = txt;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('JSON 已复制');
+  }
+};
+
+document.getElementById('btnReset').onclick = ()=>{
+  if(!confirm('将丢弃当前编辑内容，恢复为默认数据，确定？')) return;
+  data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  save(); render();
+};
+
+/* 启动：先加载数据，再渲染 */
+(async ()=>{
+  const src = await loadData();
+  render();
+
+  const tip = document.getElementById('tip');
+  const label = {
+    'data.json': 'data.json（仓库数据）',
+    'localStorage': '本机缓存 localStorage',
+    'default': '内置默认数据'
+  }[src];
+
+  const line = document.createElement('div');
+  line.style.cssText = 'margin-top:6px;color:#a86a00;';
+  line.textContent = '当前数据来源：' + label;
+  tip.appendChild(line);
+})();
+</script>
+</body>
+</html>

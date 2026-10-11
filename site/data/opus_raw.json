@@ -1,0 +1,213 @@
+{
+  "item": {
+    "basic": {
+      "comment_id_str": "53316951",
+      "comment_type": 12,
+      "like_icon": {
+        "action_url": "",
+        "end_url": "",
+        "id": 0,
+        "start_url": ""
+      },
+      "rid_str": "53316951"
+    },
+    "id_str": "1256149390068809735",
+    "modules": {
+      "module_author": {
+        "avatar": {
+          "container_size": {
+            "height": 1.35,
+            "width": 1.35
+          },
+          "fallback_layers": {
+            "is_critical_group": true,
+            "layers": [
+              {
+                "general_spec": {
+                  "pos_spec": {
+                    "axis_x": 0.675,
+                    "axis_y": 0.675,
+                    "coordinate_pos": 2
+                  },
+                  "render_spec": {
+                    "opacity": 1
+                  },
+                  "size_spec": {
+                    "height": 1,
+                    "width": 1
+                  }
+                },
+                "layer_config": {
+                  "is_critical": true,
+                  "tags": {
+                    "AVATAR_LAYER": {},
+                    "GENERAL_CFG": {
+                      "config_type": 1,
+                      "general_config": {
+                        "web_css_style": {
+                          "borderRadius": "50%"
+                        }
+                      }
+                    }
+                  }
+                },
+                "resource": {
+                  "res_image": {
+                    "image_src": {
+                      "placeholder": 6,
+                      "remote": {
+                        "bfs_style": "widget-layer-avatar",
+                        "url": "https://i1.hdslb.com/bfs/face/c2bb38857162b12cfbd398f0b995a99ea607f568.jpg"
+                      },
+                      "src_type": 1
+                    }
+                  },
+                  "res_type": 3
+                },
+                "visible": true
+              },
+              {
+                "general_spec": {
+                  "pos_spec": {
+                    "axis_x": 0.8000000000000002,
+                    "axis_y": 0.8000000000000002,
+                    "coordinate_pos": 1
+                  },
+                  "render_spec": {
+                    "opacity": 1
+                  },
+                  "size_spec": {
+                    "height": 0.41666666666666663,
+                    "width": 0.41666666666666663
+                  }
+                },
+                "layer_config": {
+                  "tags": {
+                    "GENERAL_CFG": {
+                      "config_type": 1,
+                      "general_config": {
+                        "web_css_style": {
+                          "background-color": "rgb(255,255,255)",
+                          "border": "2px solid rgba(255,255,255,1)",
+                          "borderRadius": "50%",
+                          "boxSizing": "border-box"
+                        }
+                      }
+                    },
+                    "ICON_LAYER": {}
+                  }
+                },
+                "resource": {
+                  "res_image": {
+                    "image_src": {
+                      "placeholder": 1,
+                      "remote": {
+                        "bfs_style": "widget-layer-avatar",
+                        "url": "http://i0.hdslb.com/bfs/vip/dbe23f4ede5c120f11e18630cdd023010bce03b3.png@80w_80h_1c.webp"
+                      },
+                      "src_type": 1
+                    }
+                  },
+                  "res_type": 3
+                },
+                "visible": true
+              }
+            ]
+          },
+          "mid": "3706927737473467"
+        },
+        "face": "https://i1.hdslb.com/bfs/face/c2bb38857162b12cfbd398f0b995a99ea607f568.jpg",
+        "face_nft": false,
+        "following": null,
+        "jump_url": "//space.bilibili.com/3706927737473467/dynamic",
+        "label": "",
+        "mid": 3706927737473467,
+        "name": "互联网小章鱼",
+        "official_verify": {
+          "desc": "",
+          "type": -1
+        },
+        "pendant": {
+          "expire": 0,
+          "image": "",
+          "image_enhance": "",
+          "image_enhance_frame": "",
+          "n_pid": 0,
+          "name": "",
+          "pid": 0
+        },
+        "pub_action": "投稿了文章",
+        "pub_location_text": "",
+        "pub_time": "2026年10月07日 01:41",
+        "pub_ts": 1791308471,
+        "type": "AUTHOR_TYPE_NORMAL",
+        "vip": {
+          "avatar_subscript": 1,
+          "avatar_subscript_url": "",
+          "due_date": 1792425600000,
+          "label": {
+            "bg_color": "#FB7299",
+            "bg_style": 1,
+            "border_color": "",
+            "img_label_uri_hans": "",
+            "img_label_uri_hans_static": "http://i0.hdslb.com/bfs/vip/b10e2b207a8f23982d61c1e67a7802db8cc0770f.png",
+            "img_label_uri_hant": "",
+            "img_label_uri_hant_static": "https://i0.hdslb.com/bfs/activity-plat/static/20220614/e369244d0b14644f5e1a06431e22a4d5/jwXBWRVwa5.png",
+            "label_theme": "vip",
+            "path": "http://i0.hdslb.com/bfs/vip/label_vip.png",
+            "text": "大会员",
+            "text_color": "#FFFFFF",
+            "use_img_label": true
+          },
+          "nickname_color": "#FB7299",
+          "status": 1,
+          "theme_type": 0,
+          "type": 1
+        }
+      },
+      "module_dynamic": {
+        "additional": null,
+        "desc": null,
+        "major": {
+          "article": {
+            "covers": [
+              "https://i0.hdslb.com/bfs/new_dyn/banner/bf841e08825b19961311b1887b8c28233706927737473467.png"
+            ],
+            "desc": "本文主角「辣椒樹」，又名「幸奈」、「YamiNa」、「互聯網小章魚」、「杉原夜季」、「Kiyotsuki」、「十返清月」，曾任職《Milthm》策劃。 以下內容由知情人士提供，並經整理後發布。 ———————————————————————————————— Milthm前主創成員小章魚，在公開賬號明確表明自己退出遊戲製作後，依舊不斷威脅、控制、糾纏新製作組數月。索要“7萬天價買斷費”、“一票否決權”未果後，多次威脅團隊，拒絕合理交流，擅自干涉新製作組工作，拉幫結派，多次辱罵造謠製作組成員，導致製作組無可",
+            "id": 53316951,
+            "jump_url": "//www.bilibili.com/read/cv53316951/",
+            "label": "786阅读",
+            "title": "威脅？泄露？深度剖析小章魚如何讓Milthm新團隊走向崩潰"
+          },
+          "type": "MAJOR_TYPE_ARTICLE"
+        },
+        "topic": null
+      },
+      "module_more": {
+        "three_point_items": [
+          {
+            "label": "举报",
+            "type": "THREE_POINT_REPORT"
+          }
+        ]
+      },
+      "module_stat": {
+        "comment": {
+          "count": 18,
+          "forbidden": false
+        },
+        "forward": {
+          "count": 3,
+          "forbidden": false
+        },
+        "like": {
+          "count": 26,
+          "forbidden": false,
+          "status": false
+        }
+      }
+    },
+    "type": "DYNAMIC_TYPE_ARTICLE",
+    "visible": true
+  }
+}

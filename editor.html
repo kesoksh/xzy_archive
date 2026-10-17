@@ -114,10 +114,10 @@ const STORAGE_KEY = 'xzy_archive_index_v1';
 const DEFAULT_DATA = {
   "updated": "2026-10-11",
   "items": [
-    { "id":"a1","title":"小章鱼，你欠所有人一个交代！","file":"site/archive/a1/小章鱼_你欠所有人一个交代.html","time":"2026-10-06 00:00","desc":"专栏 cv53304354 · 五大罪行逐条列举","tag":"专栏","zone":"new" },
-    { "id":"a2","title":"威胁？泄露？深度剖析小章鱼如何让 Milthm 新团队走向崩溃","file":"site/archive/a2/威胁_泄露_深度剖析小章鱼如何让 Milthm 新团队走向崩溃.html","time":"2026-10-07 01:43","desc":"专栏 cv53316951 · 知情人士整理","tag":"专栏","zone":"new" },
-    { "id":"a3","title":"互联网小章鱼 的动态存档（全部时间）","file":"site/archive/a3/3706927737473467_dynamic.html","time":"2026-10-11 01:05","desc":"共 14 条动态 · 含视频投稿与转发","tag":"动态","zone":"new" },
-    { "id":"a4","title":"杉原夜季Official 的动态存档（2026-07-30 以来）","file":"site/archive/a4/小章鱼_动态_2026-07-30以来.html","time":"2026-10-02 02:59","desc":"共 24 条动态 · 视频投稿 / 图文 / 转发 / 专栏","tag":"动态","zone":"new" }
+    { "id":"a1","title":"小章鱼，你欠所有人一个交代！","file":"site/archive/a1/index.html","time":"2026-10-06 00:00","desc":"专栏 cv53304354 · 五大罪行逐条列举","tag":"专栏","zone":"new" },
+    { "id":"a2","title":"威胁？泄露？深度剖析小章鱼如何让 Milthm 新团队走向崩溃","file":"site/archive/a2/index.html","time":"2026-10-07 01:43","desc":"专栏 cv53316951 · 知情人士整理","tag":"专栏","zone":"new" },
+    { "id":"a3","title":"互联网小章鱼 的动态存档（全部时间）","file":"site/archive/a3/index.html","time":"2026-10-11 01:05","desc":"共 14 条动态 · 含视频投稿与转发","tag":"动态","zone":"new" },
+    { "id":"a4","title":"杉原夜季Official 的动态存档（2026-07-30 以来）","file":"site/archive/a4/index.html","time":"2026-10-02 02:59","desc":"共 24 条动态 · 视频投稿 / 图文 / 转发 / 专栏","tag":"动态","zone":"new" }
   ]
 };
 
@@ -210,7 +210,7 @@ function card(it){
       <input type="text" data-k="title" value="${escAttr(it.title)}">
 
       <label>文件名</label>
-      <input type="text" data-k="file" value="${escAttr(it.file)}" placeholder="例如 site/archive/a6/xxx.html（保存时用 --archive 可自动登记）">
+      <input type="text" data-k="file" value="${escAttr(it.file)}" placeholder="例如 site/archive/a6/index.html（保存时用 --archive 可自动登记）">
 
       <label>更新时间</label>
       <input type="text" data-k="time" value="${escAttr(it.time)}" placeholder="2026-10-06 00:00">
@@ -280,7 +280,7 @@ function addItem(zone){
   data.items.push({
     id: uid(),
     title: '新存档',
-    file: 'site/archive/example/example.html',
+    file: 'site/archive/example/index.html',
     time: new Date().toISOString().slice(0,16).replace('T',' '),
     desc: '',
     tag: '',

@@ -45,7 +45,7 @@
 ## 使用方式
 
 - 打开[在线站点](https://kesoksh.github.io/xzy_archive/)，从索引页点击进入任意存档；页面按「更新 / 历史」分区，并标注存档时间与说明。
-- 每个存档页是**单个自包含 HTML 文件**，图片位于同目录 `images\` 下相对引用——整页连同图片目录拷走即可离线阅读，也可直接收藏在线版本。
+- 每个存档页是**单个自包含 HTML 文件**（页名统一为 `index.html`，站内用 `site/archive/<id>/` 目录地址即可直达，如 [`/site/archive/a6/`](https://kesoksh.github.io/xzy_archive/site/archive/a6/)），图片位于同目录 `images\` 下相对引用——整页连同图片目录拷走即可离线阅读，也可直接收藏在线版本。
 - 索引由根目录 `data.json` 驱动（字段：`id / title / file / time / desc / tag / zone`），`editor.html` 提供可视化编辑，导出 JSON 覆盖 `data.json` 即可更新首页列表。
 
 ## 目录结构
@@ -56,10 +56,10 @@
 ├── data.json         存档索引数据
 └── site\
     └── archive\
-        ├── a1\ ~ a5\     各存档的自包含目录
-        │   ├── xxx.html  存档页本体
+        ├── a1\ ~ a6\     各存档的自包含目录
+        │   ├── index.html  存档页本体（访问 site/archive/<id>/ 目录即直达）
         │   ├── images\   该页全部图片（相对引用，离线可看）
-        │   └── backup_original\  存档原始版本备份
+        │   └── backup_original\  存档原始版本备份（保留原文件名）
         └── _inbox\       草稿区（不进入索引）
 ```
 

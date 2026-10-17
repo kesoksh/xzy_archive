@@ -10,8 +10,9 @@
     python site\\scripts\\save_bilibili_opus.py 1257802333947953158 --archive a6    # 指定索引 id
 
 --archive 归档一条龙（保证新存档结构不乱套）:
-    * 自动分配下一个空闲 aN（或 --archive aN 指定），输出到 site\\archive\\<id>\\
-    * 自动把条目写进仓库根的 data.json（file = site/archive/<id>/…，zone=new）
+    * 自动分配下一个空闲 aN（或 --archive aN 指定），输出到 site\\archive\\<id>\\index.html
+      （页名统一 index.html：站点访问 site/archive/<id>/ 目录地址即直达，无长串编码）
+    * 自动把条目写进仓库根的 data.json（file = site/archive/<id>/index.html，zone=new）
     * 之后跑 node site\\scripts\\localize_images.js 自动发现新页面、
       下载全部图片并改写本地引用 —— 全程无需手改任何代码
 
@@ -451,7 +452,8 @@ def main() -> int:
     elif args.archive is not None:
         aid = next_archive_id() if args.archive == "auto" else args.archive
         check_archive_id(aid)
-        out_path = ARCHIVE_ROOT / aid / fname
+        # 页名统一 index.html：站点访问 site/archive/<id>/ 目录即直达
+        out_path = ARCHIVE_ROOT / aid / "index.html"
     else:
         out_path = INBOX_DIR / fname  # 默认草稿区，不登记索引
 
@@ -490,7 +492,7 @@ def main() -> int:
     print(f"已保存: {rel}")
 
     if aid:
-        file_rel = f"site/archive/{aid}/{fname}"
+        file_rel = f"site/archive/{aid}/index.html"
         desc = (
             f"cv{cv_id} by {rec.get('author')}" if cv_id
             else f"{suffix} by {rec.get('author')}"
@@ -498,6 +500,7 @@ def main() -> int:
         tag = "B站专栏" if cv_id else "B站动态"
         register_entry(aid, title or "未命名", file_rel, _beijing_now(), desc, tag)
         print(f"[索引] 已登记 data.json: id={aid}  file={file_rel}  zone=new")
+        print(f"[访问] 站内目录地址即直达: site/archive/{aid}/")
         print("下一步（自动发现本页、下载图片并改本地引用）: node site\\scripts\\localize_images.js")
     elif not args.out:
         print(f"[草稿] 未登记索引；确认后重跑加 --archive 正式归档: "

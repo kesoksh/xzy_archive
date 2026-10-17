@@ -244,13 +244,13 @@ def main() -> int:
         print("没有可下载的图片。")
         return 0
 
-    # 默认落到 HTML 同目录的 images\<html名>\：既不污染运行时 cwd（仓库根只放入口文件），
+    # 默认落到 HTML 同目录的 images\<名>\：既不污染运行时 cwd（仓库根只放入口文件），
     # 又符合 archive 约定，localize_images.js 扫描 images\*\manifest.json 时能直接接管。
-    out_dir = (
-        Path(args.out)
-        if args.out
-        else html_path.parent / "images" / html_path.with_suffix("").name
-    )
+    # 存档页惯例页名为 index.html，无信息量 —— 改用所在目录名（如 a6）作图片目录名。
+    stem = html_path.with_suffix("").name
+    if stem.lower() == "index":
+        stem = html_path.parent.name
+    out_dir = Path(args.out) if args.out else html_path.parent / "images" / stem
     out_dir.mkdir(parents=True, exist_ok=True)
     print(f"保存目录: {out_dir.resolve()}")
 

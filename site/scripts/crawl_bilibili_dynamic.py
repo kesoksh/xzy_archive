@@ -1021,7 +1021,8 @@ def main() -> int:
     ap.add_argument("--no-local", action="store_true",
                     help="跳过 local_articles.json 里登记的本地简体整理版文章")
     ap.add_argument("-o", "--out", default=None,
-                    help=f"输出 HTML 路径（默认：命中 ARCHIVE_DIRS 的 uid 写入其存档目录，如 {ARCHIVE_DIRS.get('3706927737473467', '')}/{{uid}}_dynamic.html；否则当前目录）")
+                    help=f"输出 HTML 路径（默认：命中 ARCHIVE_DIRS 的 uid 写入存档目录的 index.html，"
+                         f"如 {ARCHIVE_DIRS.get('3706927737473467', '')}/index.html；否则 site\\{{uid}}_dynamic.html）")
     ap.add_argument("--json", dest="json_out", default=None, help="输出 JSON 路径（默认与 HTML 同目录）")
     args = ap.parse_args()
 
@@ -1040,7 +1041,9 @@ def main() -> int:
         since_text = "全部时间"
     archive_dir = ARCHIVE_DIRS.get(mid)  # 命中归档站映射 → 默认写入 site/archive/<id>/
     default_base = (ROOT / archive_dir) if archive_dir else SITE
-    out_html = Path(args.out) if args.out else default_base / f"{mid}_dynamic.html"
+    # 存档目录以 index.html 为页名：站点访问 …/site/archive/<id>/ 即直达（目录默认页）
+    default_name = "index.html" if archive_dir else f"{mid}_dynamic.html"
+    out_html = Path(args.out) if args.out else default_base / default_name
     out_json = Path(args.json_out) if args.json_out else default_base / f"{mid}_dynamic.json"
 
     print(f"[target] uid={mid}  截止={since_text}  间隔={args.interval}s")

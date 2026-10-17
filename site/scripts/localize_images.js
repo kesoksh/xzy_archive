@@ -12,7 +12,9 @@
  *      缺失的图自动下载 → 改写 src 为本地引用。
  *
  * 说明:
- *   * crawl_bilibili_dynamic.py 每次重跑都会把 site\archive\a3\3706927737473467_dynamic.html
+ *   * 存档页页名统一为 index.html（站点访问 …/site/archive/<aid>/ 目录即直达）；
+ *     backup_original\ 里的老备份保留原描述性文件名，勿改名。
+ *   * crawl_bilibili_dynamic.py 每次重跑都会把 site\archive\a3\index.html
  *     重新渲染成远程图床链接 —— 更新后请再跑一次本脚本恢复本地化。
  *   * manifest 查找顺序: images\manifest.json → images\*\manifest.json（含
  *     download_html_images.py 生成的清单）；完全没有清单时新建 images\manifest.json。
@@ -26,14 +28,15 @@ const SITE = path.resolve(__dirname, '..'); // ...\<仓库根>\site
 const ROOT = path.resolve(SITE, '..');      // 仓库根（index.html / data.json 所在）
 const ARCHIVE = path.join(SITE, 'archive');
 
-// JOBS = 已知存档页的显式任务。aid=索引 id；html 位于 site/archive/<aid>/<html>；
-// img 是图片目录（相对页面所在目录），也是写回 <img src> 的相对前缀。
+// JOBS = 已知存档页的显式任务。aid=索引 id；页名统一为 index.html（站点访问
+// …/site/archive/<aid>/ 目录即直达）；img 是图片目录（相对页面所在目录），
+// 也是写回 <img src> 的相对前缀。
 const JOBS = [
-  { aid: 'a1', html: '小章鱼_你欠所有人一个交代.html', img: 'images/小章鱼交代_cv53304354', mode: 'order' },
-  { aid: 'a2', html: '威胁_泄露_深度剖析小章鱼如何让 Milthm 新团队走向崩溃.html', img: 'images/cv53316951', mode: 'manifest' },
-  { aid: 'a3', html: '3706927737473467_dynamic.html', img: 'images/主账号动态页_37069', mode: 'manifest', fetchMissing: true },
-  { aid: 'a4', html: '小章鱼_动态_2026-07-30以来.html', img: 'images/旧号动态_11930395', mode: 'manifest' },
-  { aid: 'a5', html: '黑嘴酱-Milthm 究竟发生了什么：关于【1月冲击】的真相-opus1257802333947953158.html', img: 'images/黑嘴酱_cv53382393', mode: 'manifest' },
+  { aid: 'a1', html: 'index.html', img: 'images/小章鱼交代_cv53304354', mode: 'order' },
+  { aid: 'a2', html: 'index.html', img: 'images/cv53316951', mode: 'manifest' },
+  { aid: 'a3', html: 'index.html', img: 'images/主账号动态页_37069', mode: 'manifest', fetchMissing: true },
+  { aid: 'a4', html: 'index.html', img: 'images/旧号动态_11930395', mode: 'manifest' },
+  { aid: 'a5', html: 'index.html', img: 'images/黑嘴酱_cv53382393', mode: 'manifest' },
 ];
 
 async function download(url, dirAbs) {
@@ -73,12 +76,17 @@ function findManifests(pageDir) {
   return out;
 }
 
-/** 首次处理页面时把远程原版备份到 backup_original\（已存在则不覆盖）。 */
+/**
+ * 首次处理页面时把远程原版备份到 backup_original\。
+ * 判定从「同名文件是否存在」放宽为「目录里是否已有任何 .html」——页名统一改为
+ * index.html 后，老备份仍保留描述性文件名，避免同一目录出现重复备份。
+ */
 function backupOnce(pageDir, htmlFile, content) {
   const bakDir = path.join(pageDir, 'backup_original');
   fs.mkdirSync(bakDir, { recursive: true });
-  const bakPath = path.join(bakDir, htmlFile);
-  if (!fs.existsSync(bakPath)) fs.writeFileSync(bakPath, content, 'utf8');
+  const has = fs.readdirSync(bakDir).some((f) => /\.html$/i.test(f));
+  if (has) return;
+  fs.writeFileSync(path.join(bakDir, htmlFile), content, 'utf8');
 }
 
 /**

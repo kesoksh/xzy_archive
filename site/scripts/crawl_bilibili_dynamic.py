@@ -101,6 +101,7 @@ VIDEO_URL = "https://api.bilibili.com/x/web-interface/view?bvid={bvid}"
 # 运行期 state/缓存不受影响，始终写在 site\。新增映射条目即可让其他 uid 落进 archive。
 ARCHIVE_DIRS = {
     "3706927737473467": "site/archive/a3",  # 主账号动态页（索引 a3）
+    "11930395": "site/archive/a4",           # 旧号动态页（索引 a4）
 }
 
 TYPE_NAME = {
@@ -887,7 +888,13 @@ def render_card(r: dict) -> str:
     return f"{label}{title}{stat_line}{text}{extra}{pics_html}{media}{link}"
 
 
-def render_html(records: list[dict], mid: str, since_text: str) -> str:
+def back_href_for(out_path: Path) -> str:
+    """输出页 → 仓库根 index.html 的相对链接（随输出目录深度自适应）。"""
+    rel = os.path.relpath(ROOT / "index.html", Path(out_path).resolve().parent)
+    return rel.replace("\\", "/")
+
+
+def render_html(records: list[dict], mid: str, since_text: str, back_href: str = "index.html") -> str:
     e = html.escape
     nick = next((r.get("author") for r in records if r.get("author")), "（未知）")
     face = next((r.get("face") for r in records if r.get("face")), "")
@@ -961,9 +968,16 @@ def render_html(records: list[dict], mid: str, since_text: str) -> str:
   .stats {{ margin-top:24px; padding-top:14px; border-top:1px solid var(--line);
     color:var(--muted); font-size:13px; }}
   .stats .source {{ color:var(--muted); font-size:12px; margin-top:6px; }}
+  .back-home {{ position:fixed; top:14px; left:14px; z-index:99; display:inline-block;
+    padding:7px 16px; background:#fff; color:var(--text); font-size:14px; line-height:1.4;
+    text-decoration:none; border:1px solid var(--line); border-radius:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08); transition:.15s; }}
+  .back-home:hover {{ color:var(--accent); border-color:var(--accent); transform:translateY(-1px); }}
+  @media print {{ .back-home {{ display:none; }} }}
 </style>
 </head>
 <body>
+<a class="back-home" href="{back_href}">← 返回主页</a>
 <div class="container">
 <header class="page">
   <div class="head">{avatar}<h1>{e(nick)}（UID {mid}）的动态</h1></div>
@@ -1088,7 +1102,8 @@ def main() -> int:
     for _p in (out_html, out_json):
         _p.parent.mkdir(parents=True, exist_ok=True)
     out_json.write_text(json.dumps(deduped, ensure_ascii=False, indent=2), encoding="utf-8")
-    out_html.write_text(render_html(deduped, mid, since_text), encoding="utf-8")
+    back = back_href_for(out_html)  # 返回主页链接随输出深度自适应
+    out_html.write_text(render_html(deduped, mid, since_text, back), encoding="utf-8")
 
     types: dict[str, int] = {}
     for r in deduped:

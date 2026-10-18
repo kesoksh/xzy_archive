@@ -34,6 +34,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import re
 import sys
 import time
@@ -242,6 +243,7 @@ def render_page(
     stats_html: str,
     source_note: str,
     links: list[tuple[str, str]],
+    back_href: str = "index.html",
 ) -> str:
     e = html.escape
     cover_html = f'<img class="cover" src="{e(cover)}" alt="封面">' if cover else ""
@@ -288,9 +290,16 @@ def render_page(
   .stats .source {{ color:var(--muted); font-size:13px; margin-top:6px; }}
   .src-links {{ margin-top:12px; }}
   .d-link {{ color:var(--blue); font-size:13px; word-break:break-all; margin-right:14px; }}
+  .back-home {{ position:fixed; top:14px; left:14px; z-index:99; display:inline-block;
+    padding:7px 16px; background:#fff; color:var(--text); font-size:14px; line-height:1.4;
+    text-decoration:none; border:1px solid var(--line); border-radius:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08); transition:.15s; }}
+  .back-home:hover {{ color:var(--accent); border-color:var(--accent); transform:translateY(-1px); }}
+  @media print {{ .back-home {{ display:none; }} }}
 </style>
 </head>
 <body>
+<a class="back-home" href="{back_href}">← 返回主页</a>
 <div class="container">
 <article class="card">
   {cover_html}
@@ -465,6 +474,8 @@ def main() -> int:
         return 0
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    # 返回主页链接随输出目录深度自适应
+    back = os.path.relpath(ROOT / "index.html", out_path.resolve().parent).replace("\\", "/")
     page = render_page(
         title=title,
         author=rec.get("author") or "未知作者",
@@ -477,6 +488,7 @@ def main() -> int:
         stats_html=stats_html,
         source_note=source_note,
         links=links,
+        back_href=back,
     )
     out_path.write_text(page, encoding="utf-8")
 

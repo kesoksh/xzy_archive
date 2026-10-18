@@ -33,10 +33,10 @@ const ARCHIVE = path.join(SITE, 'archive');
 // 也是写回 <img src> 的相对前缀。
 const JOBS = [
   { aid: 'a1', html: 'index.html', img: 'images/小章鱼交代_cv53304354', mode: 'order' },
-  { aid: 'a2', html: 'index.html', img: 'images/cv53316951', mode: 'manifest' },
+  { aid: 'a2', html: 'index.html', img: 'images/cv53316951', mode: 'manifest', fetchMissing: true },
   { aid: 'a3', html: 'index.html', img: 'images/主账号动态页_37069', mode: 'manifest', fetchMissing: true },
-  { aid: 'a4', html: 'index.html', img: 'images/旧号动态_11930395', mode: 'manifest' },
-  { aid: 'a5', html: 'index.html', img: 'images/黑嘴酱_cv53382393', mode: 'manifest' },
+  { aid: 'a4', html: 'index.html', img: 'images/旧号动态_11930395', mode: 'manifest', fetchMissing: true },
+  { aid: 'a5', html: 'index.html', img: 'images/黑嘴酱_cv53382393', mode: 'manifest', fetchMissing: true },
 ];
 
 async function download(url, dirAbs) {

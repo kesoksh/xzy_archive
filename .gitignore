@@ -2,6 +2,13 @@
 /site/*_state.json
 /site/*_cache.json
 
+# ---- 自动更新运行期文件（日志 / 锁 / 临时输出）----
+/site/auto_update.log
+/site/auto_update.log.old
+/site/auto_update.lock
+/site/auto_update.step.log
+/site/_auto_update_*
+
 # ---- Python / Node 缓存 ----
 __pycache__/
 *.py[cod]

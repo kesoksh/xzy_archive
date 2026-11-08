@@ -146,7 +146,7 @@ def register_entry(
         },
     )
     data["items"] = items
-    data["updated"] = time_str[:10]  # YYYY-MM-DD（北京时间）
+    data["updated"] = time.strftime("%Y/%m/%d", time.gmtime(time.time() + 8 * 3600))
     DATA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
@@ -510,7 +510,10 @@ def main() -> int:
             else f"{suffix} by {rec.get('author')}"
         )
         tag = "B站专栏" if cv_id else "B站动态"
-        register_entry(aid, title or "未命名", file_rel, _beijing_now(), desc, tag)
+        # time 用原发布时间（与 a1~a6 一致：索引显示的是内容发布时间，不是归档时间）
+        pub_ts = rec.get("pub_ts") or 0
+        time_str = fmt_ts(pub_ts) if pub_ts else _beijing_now()
+        register_entry(aid, title or "未命名", file_rel, time_str, desc, tag)
         print(f"[索引] 已登记 data.json: id={aid}  file={file_rel}  zone=new")
         print(f"[访问] 站内目录地址即直达: site/archive/{aid}/")
         print("下一步（自动发现本页、下载图片并改本地引用）: node site\\scripts\\localize_images.js")

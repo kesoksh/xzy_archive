@@ -1,5 +1,51 @@
 [
   {
+    "id": "1269712557449412609",
+    "type": "DYNAMIC_TYPE_FORWARD",
+    "is_orig": false,
+    "pub_ts": 1794466392,
+    "author": "杉原夜季Official",
+    "face": "https://i1.hdslb.com/bfs/face/00248ad1f79c8897b73561c91094e7fdd9b7cee6.jpg",
+    "rid": "1269712557449412609",
+    "bvid": "",
+    "text": "分享动态",
+    "kind": "纯文本",
+    "title": "",
+    "url": "",
+    "pics": [],
+    "extra": "",
+    "stats": {
+      "fwd": 0,
+      "cmt": 0,
+      "like": 4
+    },
+    "link": "https://t.bilibili.com/1269712557449412609",
+    "orig": {
+      "id": "1255445663944015875",
+      "type": "DYNAMIC_TYPE_AV",
+      "is_orig": true,
+      "pub_ts": 1791144622,
+      "author": "戴雅萌多親",
+      "face": "https://i0.hdslb.com/bfs/face/cc2fcf9746026e97963dbf07cc1c194d7bb5db1c.jpg",
+      "rid": "",
+      "bvid": "BV1ABHE62EKD",
+      "text": "文案来自网络视频\n可爱的高松灯决定给大家一些忠告",
+      "kind": "视频",
+      "title": "最近大家都别死了",
+      "url": "https://www.bilibili.com/video/BV1ABHE62EKD",
+      "pics": [
+        "https://i2.hdslb.com/bfs/archive/242f408242cab85fe49e9efb442c061b9bffc1fe.jpg"
+      ],
+      "extra": "8.9万 播放 / 99 弹幕 · 00:36",
+      "stats": {
+        "fwd": 0,
+        "cmt": 0,
+        "like": 0
+      },
+      "link": "https://t.bilibili.com/1255445663944015875"
+    }
+  },
+  {
     "id": "1266817139621232658",
     "type": "DYNAMIC_TYPE_DRAW",
     "is_orig": false,
@@ -1282,6 +1328,28 @@
       "like": 59
     },
     "link": "https://t.bilibili.com/1250816926166286357"
+  },
+  {
+    "id": "1250814817311129608",
+    "type": "DYNAMIC_TYPE_DRAW",
+    "is_orig": false,
+    "pub_ts": 1790066419,
+    "author": "杉原夜季Official",
+    "face": "https://i1.hdslb.com/bfs/face/00248ad1f79c8897b73561c91094e7fdd9b7cee6.jpg",
+    "rid": "409951483",
+    "bvid": "",
+    "text": "某音游只顾着自己游戏的热度高不高、自己的成员爽不爽，​根本就不把和你们合作的曲师和其他音游的staff当人。联动想吹就吹、更新想不更就不更、曲子想不要就不要。\n最后再美美把责任全部都转移到一个甚至都不在制作组的人身上去，自己留一个“我尽力了但对方不配合”，占据道德制高点抢掉了受害者的位置。\n你们对得起这些曲师吗，你们对得起喜欢这些曲子的玩家吗。",
+    "kind": "图文",
+    "title": "",
+    "url": "https://www.bilibili.com/opus/1250814817311129608",
+    "pics": [],
+    "extra": "",
+    "stats": {
+      "fwd": 0,
+      "cmt": 0,
+      "like": 0
+    },
+    "link": "https://t.bilibili.com/1250814817311129608"
   },
   {
     "id": "1249826021340872710",
